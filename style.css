@@ -1,93 +1,171 @@
-*{ margin: 0; padding: 0; box-sizing: border-box;}
+*{
+    box-sizing: border-box;
+}
 
 body{
-    width: 100%;
-    min-height: 100vh;
-    --bgColor: hsl(0, 0%, 98%);
-    --fontcolor: hsl(200, 15%, 8%);
-    font-family: Arial, Helvetica, sans-serif;
+    --background-color:white;
+    --text-color:black;
+    --elements-color:white;
+    margin: 0;
+    font-family: Nunito, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
-.dark{ --bgColor: hsl(200, 15%, 8%); --fontcolor: hsl(0, 0%, 98%); background: var(--bgColor);
-    color: var(--fontcolor); --countrybgColor : hsl(207, 26%, 17%)}
 
-.container{ width: 100%; padding: 30px; display: flex; justify-content: space-between;}
-.container:nth-child(1){ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); background: var(--countrybgColor);}
-
-button{ outline: none; border: 0; background: transparent; color: var(--fontcolor);}
-
-.toggle{ font-size: 18px; cursor: pointer; color: var(--fontcolor);}
-.toggle i{ padding-right: 5px;}
-
-.form-control{ width: 400px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); position: relative;
-    border-radius: 5px; overflow: hidden; background: var(--countrybgColor);}
-.form-control input{ width: 100%; padding: 17px 14px; outline: 0; border: 0; font-size: 15px;
-    letter-spacing: 0.5px; background: transparent; color: var(--fontcolor);}
-.form-control i{ position: absolute; top: 1rem; right: 1rem; cursor: pointer;}
-i{ cursor: pointer;}
-.dropDownTop{ width: 200px; position: relative; background: var(--countrybgColor); border-radius: 5px;}
-.dropDown{ width: 100%; padding: 17px 14px; border-radius: 5px;  
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); display: flex; justify-content: space-between;
-    cursor: pointer; font-size: 15px; color: var(--fontcolor);}
-.dropDown p{ letter-spacing: 0.5px;}
-.drop{ position: absolute; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); top: 4rem;
-    padding: 10px 14px; width: 100%; border-radius: 5px; background: var(--bgColor); cursor: pointer;
-    background: var(--countrybgColor);}
-.drop p{ margin: 5px 0;}
-.drop p:hover{ background-color: gray;}
-.countries{ padding: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 50px}
-.country{ min-height: 350px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
-    border-radius: 5px; overflow: hidden; background: var(--countrybgColor);}
-.country-img{ height: 250px;}
-.country-img img{ width: 100%; height: 100%; object-fit: cover;}
-.country-info{ padding: 20px 17px;}
-.country-info h5{ padding: 8px 0; font-size: 20px; letter-spacing: 1px;}
-.country-info p{ letter-spacing: 1px;}
-.country-info p>strong{ font-weight: 600;}
-
-.showDropDown{ display: none;}
+body.dark {
+    --background-color:hsl(207, 26%, 17%);
+    --text-color:white;
+    --elements-color:hsl(207, 26%, 22%);  
+}
 
 
-.countryModal{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bgColor); 
-    padding: 30px;}
-.back{ position: absolute; top: 3rem; left: 30px; background: var(--countrybgColor); box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    padding: 10px 20px; font-size: 16px; letter-spacing: 1px; border-radius: 5px; cursor: pointer;}
-.modal{ display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%;}
-.leftModal{ width: 50%;}
-.leftModal img{ width: 100%; height: 100%; object-fit: cover;}
-.rightModal{ width: 50%; margin-left: 40px;}
-.modalInfo{ display: flex; justify-content: space-between;}
-.rightModal h1{ margin: 10px 0; letter-spacing: 1px; font-size: 40px;}
-.inner p{ letter-spacing: 1px;}
-.inner p>strong{ font-weight: 600;}
-.show{ display: none;}
 
-.border{ display: flex; justify-content: center; align-items: center; margin-top: 50px;}
+.theme-changer{
+    cursor: pointer;
+}
+
+main{
+    padding: 24px;
+}
+
+a {
+    text-decoration-line: none;
+    color: inherit;
+}
+
+.header-container{
+    box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.2);
+    padding-inline: 24px;
+    background-color: var(--elements-color);
+}
+
+.header-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.title{
+    font-weight: 600;
+}
+
+.countries-container {
+    max-width: 1200px;
+    margin-inline: auto;
+    margin-top: 16px;
+    display: flex;
+    gap: 64px;
+    flex-wrap: wrap;
+    margin-inline: auto;
+    justify-content: space-between;
+}
+
+.country-card{
+    display: inline-block;
+    width: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+    padding-bottom: 18px;
+    box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+    background-color: var(--elements-color);
+}
+
+.country-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card-title{
+    font-size: 24px;
+    margin-block: 16px;
+}
+
+.card-text{
+    padding-inline: 16px;
+}
+
+.card-text p {
+    margin-block: 8px;
+}
+
+.country-card img{
+    width: 100%;
+}
+
+.fa-moon{
+    cursor: pointer;
+}
+
+.search-filter-container{
+    max-width: 1200px;
+    margin-inline: auto;
+    margin-top: 16px;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.search-container{
+    box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.15);
+    max-width: 350px;
+    width: 100%;
+    border-radius: 4px;
+    padding-left: 24px;
+    color: #999;
+    overflow: hidden;
+}
+
+.search-container input{
+    border: none;
+    outline: none;
+    padding: 16px;
+   width: 90%;
+   background-color: inherit;
+   color: inherit;
+}
+
+.search-container input::placeholder{
+    color: #999;
+}
+
+.filter-by-region{
+    width: 250px;
+    padding: 16px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    background-color: var(--elements-color);
+    color: var(--text-color);
+}
+select>option{
+    font-weight: bold;
+}
+
+.none{
+    display: none;
+}
 
 
-@media screen and (max-width:768px) {
-    .countryModal{
-        display: flex;
-        flex-direction: column;
-    }
-    .modal{
-        display: flex;
-        flex-direction: column;
+
+@media(max-width: 768px){
+    .countries-container{
         justify-content: center;
-        margin-top: 70px;
     }
-    .rightModal{
-        display: flex;
+
+    .title{
+        font-size: 16px;
+    }
+
+    .header-content p{
+        font-size: 12px;
+    }
+
+    .search-filter-container {
         flex-direction: column;
-        width: 100%;
-    }
-    .leftModal{
-        width: 100%;
-    }
-    .modalInfo{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 15px;
     }
 }

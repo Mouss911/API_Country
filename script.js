@@ -1,108 +1,64 @@
-const countriesElem = document.querySelector(".countries");
-const dropDown = document.querySelector(".dropDown");
-const dropElem = document.querySelector(".drop");
-const region = document.querySelectorAll(".region");
-const search = document.querySelector(".search");
-const toggle = document.querySelector(".toggle");
-const moon = document.querySelector(".moon");
+const countriesContainer = document.querySelector(".countries-container");
+const filterByRegion = document.querySelector(".filter-by-region");
+const searchInput = document.querySelector(".search-container");
 
+const themeChanger = document.querySelector(".theme-changer");
 
-async function getCountry(){
-    const url = await fetch("https://restcountries.com/v3.1/all")
-    const res = await url.json();
-    console.log(res);
-    res.forEach(element => {
-        showCountry(element)
+let allCountriesData = [];
+let contriesFilter = [];
+
+function afficherTousLesPays() {
+  fetch("https://restcountries.com/v3.1/all/")
+    .then((res) => res.json())
+    .then((data) => {
+      renderCountries(data);
+      allCountriesData = data;
     });
 }
+afficherTousLesPays();
 
-getCountry();
-function showCountry(data){
-    const country = document.createElement("div")
-    country.classList.add("country")
-    country.innerHTML = `
-    <div class="country-img">
-    <img src="${data.flags.png}" alt="">
-</div>
-<div class="country-info">
-    <h5 class="countryName">${data.name.common}</h5>
-    <p><strong>Population :</strong>${data.population}</p>
-    <p class="regionName"><strong>Region :</strong>${data.region}</p>
-    <p><strong>Capital :</strong>${data.capital}</p>
-</div>`
-    countriesElem.appendChild(country)
-    country.addEventListener("click", ()=>{
-        showCountryDetail(data)
-    })
+function renderCountries(data) {
+  countriesContainer.innerHTML = "";
+  data.forEach((pays) => {
+    const countryCard = document.createElement("a");
+    countryCard.classList.add("country-card");
+    countryCard.href = `details.html?name=${pays.name.common}`;
+    countryCard.innerHTML = `
+        <img src="${pays.flags.png}" alt="flag">
+        <div class="card-text">
+            <h3 class="card-title">${pays.name.common}</h3>
+            <p><b>Population: </b>${pays.population.toLocaleString("en-US")}</p>
+            <p><b>Region: </b>${pays.region}</p>
+            <p><b>Capital: </b>${pays.capital?.[0]}</p>
+        </div>
+        `;
+    countriesContainer.append(countryCard);
+  });
 }
 
-dropDown.addEventListener("click", () =>{
-    dropElem.classList.toggle("showDropDown")
-})
+function paysParContinent() {
+  const selectContinent = document.querySelector(".filter-by-region");
+  const countrySearch = document.querySelector(".search-country");
 
-const regionName = document.getElementsByClassName("regionName");
-const countryName = document.getElementsByClassName("countryName");
+  selectContinent.addEventListener("change", updateDisplayedCountries);
+  countrySearch.addEventListener("input", updateDisplayedCountries);
 
-region.forEach(element => {
-    element.addEventListener("click", ()=>{
-        console.log(element.innerText);
-        Array.from(regionName).forEach(elem =>{
-            if(elem.innerText.includes(element.innerText) || element.innerText=="All"){
-                elem.parentElement.parentElement.style.display="grid"
-            } else {
-                elem.parentElement.parentElement.style.display="none"   
-            }
-        });
+  function updateDisplayedCountries() {
+    const selectedContinent = selectContinent.value.toLowerCase();
+    const searchTerm = countrySearch.value.trim().toLowerCase();
+
+    const filteredCountries = allCountriesData.filter((pays) => {
+      return (
+        (selectedContinent === "all" ||
+          pays.region.toLowerCase() === selectedContinent) &&
+        pays.name.common.toLowerCase().includes(searchTerm)
+      );
     });
+    renderCountries(filteredCountries);
+  }
+}
+paysParContinent();
+
+themeChanger.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
 });
-
-search.addEventListener("input", ()=>{
-    Array.from(countryName).forEach(elem =>{
-        if(elem.innerText.toLowerCase().includes(search.value.toLowerCase())){
-            elem.parentElement.parentElement.style.display="grid"
-        } else {
-            elem.parentElement.parentElement.style.display="none"   
-        }
-    });
-})
-
-toggle.addEventListener("click", ()=>{
-    document.body.classList.toggle("dark")
-    lune.classList.toggle("fa-moon")
-})
-
-//-Affichage des details ainsi le bouton 'Retour'
-
-const countryModal = document.querySelector(".countryModal")
-
-function showCountryDetail(data){
-    countryModal.classList.toggle("show")
-    countryModal.innerHTML = `<button class="back">Back</button>
-    <div class="modal">
-        <div class="leftModal">
-            <img src="${data.flags.png}" alt="">
-        </div>
-        <div class="rightModal">
-            <h1>${data.name.common}</h1>
-            <div class="modalInfo">
-                <div class="innerLeft inner">
-                    <p><strong>Native Name :</strong>${data.name.official}</p>
-                    <p><strong>Population :</strong>${data.population}</p>
-                    <p><strong>Region :</strong>${data.region}</p>
-                    <p><strong>Sub-region :</strong>${data.subregion}</p>
-                </div>
-                <div class="innerRight inner">
-                    <p><strong>Capital :</strong>${data.capital}</p>
-                    <p><strong>Top Level Domain :</strong>${data.tld}</p>
-                    <p><strong>Currencies :</strong>${data.currencies}</p>
-                    <p><strong>Languages :</strong>${data.languages}</p>
-                </div>
-            </div>
-            <p class="border"><strong>Borders :</strong>${data.borders}</p>
-        </div>
-    </div>`
-    const back = countryModal.querySelector(".back")
-    back.addEventListener("click", ()=>{
-        countryModal.classList.toggle("show")
-    });
-}

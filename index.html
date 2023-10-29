@@ -1,70 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REST COUNTRIES API</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/8f130c8a35.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,regular,500,600,700,800" rel="stylesheet" />
+    <title>REST COUNTRIES API</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Where in the world?</h1>
-        <button class="toggle"><i class="fa-regular fa-moon lune"></i>Dark Mode</button>
-    </div>
-
-    <div class="container">
-        <div class="form-control">
-            <input type="text" placeholder="Search For Country" class="search">
-            <i class="fa-solid fa-magnifying-glass search"></i>
+    <header class="header-container">
+        <div class="header-content">
+            <h1 class="title">Where in the world</h1>
+            <p class="theme-changer"><i class="fa-regular fa-moon"></i>&nbsp; &nbsp; Dark Mode</p>
         </div>
-        <div class="dropDownTop">
-            <div class="dropDown">
-                <p>Filter By Region</p>
-                <button><i class="fa-solid fa-chevron-down"></i></button>
+    </header>
+    <main>
+        <div class="search-filter-container">
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input class="search-country" type="text" placeholder="Search For Country">
             </div>
-            <div class="drop showDropDown">
-                <p class="region">All</p>
-                <p class="region">Africa</p>
-                <p class="region">America</p>
-                <p class="region">Asia</p>
-                <p class="region">Europe</p>
-                <p class="region">Oceania</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="countries">
+            <select class="filter-by-region">
+                <option value="all" selected>Filter By Region</option>
+                <option value="Africa">AFRICA</option>
+                <option value="Americas">AMERICAS</option>
+                <option value="Asia">ASIA</option>
+                <option value="Europe">EUROPE</option>
+                <option value="Oceania">OCEANIA</option>
+            </select>
         
-    </div>
+        </div>
+        
+        <div class="countries-container"></div>
+    </main>
 
-    <div class="countryModal show">
-        <!-- <button class="back">Back</button>
-        <div class="modal">
-            <div class="leftModal">
-                <img src="https://flagcdn.com/w320/sn.png" alt="">
-            </div>
-            <div class="rightModal">
-                <h1>Senegal</h1>
-                <div class="modalInfo">
-                    <div class="innerLeft inner">
-                        <p><strong>Native Name :</strong>${data.population}</p>
-                        <p><strong>Population :</strong>${data.region}</p>
-                        <p><strong>Region :</strong>${data.capital}</p>
-                        <p><strong>Sub-region :</strong>${data.capital}</p>
-                    </div>
-                    <div class="innerRight inner">
-                        <p><strong>Capital :</strong>${data.population}</p>
-                        <p><strong>Top Level Domain :</strong>${data.region}</p>
-                        <p><strong>Currencies :</strong>${data.capital}</p>
-                        <p><strong>Languages :</strong>${data.capital}</p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-    </div>
-    
     <script src="script.js"></script>
 </body>
 </html>
